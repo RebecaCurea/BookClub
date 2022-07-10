@@ -23,7 +23,6 @@ public class BookBorrowerEntity {
     @Column(name = "user_id")
     private Integer userId;
 
-    @Id
     @JsonFormat
     LocalDateTime expectedReturnTimestamp;
 }

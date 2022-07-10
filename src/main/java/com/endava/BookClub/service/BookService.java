@@ -1,6 +1,7 @@
 package com.endava.BookClub.service;
 
 import com.endava.BookClub.entity.BookEntity;
+import com.endava.BookClub.projection.IBookToAvailability;
 import com.endava.BookClub.projection.IBooksRentedByASpecificUser;
 import com.endava.BookClub.projection.IBorrowerToBookToExpectedReturnTimestamp;
 import com.endava.BookClub.repository.BookRepository;
@@ -17,7 +18,7 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public List<BookEntity> findByTitleOrAuthor(Optional<String> title, Optional<String> author) {
+    public List<IBookToAvailability> findByTitleOrAuthor(String title, String author) {
         return bookRepository.findByTitleOrAuthor(title, author);
     }
 

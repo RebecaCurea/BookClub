@@ -2,6 +2,7 @@ package com.endava.BookClub.controller;
 
 import com.endava.BookClub.entity.UserEntity;
 import com.endava.BookClub.model.UserToBookToAvailablePeriod;
+import com.endava.BookClub.model.BookBorrowerIdToDefaultPeriod;
 import com.endava.BookClub.projection.IBooksRentedByASpecificUser;
 import com.endava.BookClub.projection.IBorrowerToBookToExpectedReturnTimestamp;
 import com.endava.BookClub.service.BookBorrowerService;
@@ -36,10 +37,9 @@ public class UserController {
        bookBorrowerService.rentBookForPeriod(userToBookToAvailablePeriod);
     }
 
-    @PutMapping("rent")
-    public void extendRentPeriodForBook(@RequestBody int defaultExtensionPeriodId, @RequestParam int bookId) {
-        System.out.println("User Controller - extendRentPeriodForBook");
-        // TODO implement
+    @PatchMapping("rent")
+    public void extendRentingPeriodForBook(@RequestBody BookBorrowerIdToDefaultPeriod bookBorrowerIdToDefaultPeriod) {
+        bookBorrowerService.extendRentingPeriodForBook(bookBorrowerIdToDefaultPeriod);
     }
 
     @GetMapping("own-books/borrowed")

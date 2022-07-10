@@ -2,6 +2,7 @@ package com.endava.BookClub.controller;
 
 import com.endava.BookClub.entity.BookEntity;
 import com.endava.BookClub.entity.WaitingListEntity;
+import com.endava.BookClub.projection.IBookToAvailability;
 import com.endava.BookClub.service.BookOwnerService;
 import com.endava.BookClub.service.BookService;
 import com.endava.BookClub.service.WaitingListService;
@@ -41,13 +42,12 @@ public class BookController {
     }
 
     @GetMapping("search")
-    public List<BookEntity> getSearchResult(@RequestParam(value = "title") Optional<String> title, @RequestParam(value = "author") Optional<String> author){
+    public List<IBookToAvailability> getSearchResult(@RequestParam(value = "title") String title, @RequestParam(value = "author") String author){
         return  bookService.findByTitleOrAuthor(title, author);
     }
 
-    @PutMapping("waiting-list")
+    @PostMapping("waiting-list")
     public void addUserToWaitingListForBook(@RequestBody WaitingListEntity waitingListEntity) {
-        System.out.println("Book Controller - waiting list");
         waitingListService.save(waitingListEntity);
     }
 }

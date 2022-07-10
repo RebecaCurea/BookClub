@@ -1,6 +1,7 @@
 package com.endava.BookClub.repository;
 
 import com.endava.BookClub.entity.BookEntity;
+import com.endava.BookClub.projection.IBookToAvailability;
 import com.endava.BookClub.projection.IBooksRentedByASpecificUser;
 import com.endava.BookClub.projection.IBorrowerToBookToExpectedReturnTimestamp;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,8 +14,22 @@ import java.util.Optional;
 
 @Repository
 public interface BookRepository extends JpaRepository <BookEntity, Integer> {
-    @Query( "SELECT b from BookEntity b  WHERE b.title = :title OR b.author = :author")
-    List<BookEntity> findByTitleOrAuthor(@Param("title") Optional<String> title, @Param("author") Optional<String> author);
+    @Query( value = "SELECT " +
+            "b.id AS id, " +
+            "b.title AS title, " +
+            "b.author AS author, " +
+            "b.page_nr AS pageNr, " +
+            "CASE " +
+            "WHEN bb.expected_return_timestamp IS NULL OR (bb.expected_return_timestamp IS NOT NULL AND bb.expected_return_timestamp < NOW()) " +
+            "THEN CAST (true AS text) ELSE CAST (bb.expected_return_timestamp AS text) " +
+            "END AS availability " +
+            "FROM books b " +
+            "LEFT JOIN book_borrower bb " +
+            "ON b.id = bb.book_id " +
+            "WHERE (:title <> '' AND :author <> '' AND  b.title = :title AND b.author = :author) OR " +
+            "( :title = '' AND :author <> '' AND  b.author = :author) OR " +
+            "( :title <> '' AND :author = '' AND  b.title = :title) " ,  nativeQuery = true)
+    List<IBookToAvailability> findByTitleOrAuthor(@Param("title") String title, @Param("author") String author);
 
     @Query("SELECT b from BookEntity b LEFT JOIN BookBorrowerEntity bb ON b.id = bb.bookId WHERE bb.bookId IS NULL ORDER BY b.id")
     List<BookEntity> findBooksAvailableForRenting();

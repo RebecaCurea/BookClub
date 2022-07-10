@@ -4,6 +4,7 @@ import com.endava.BookClub.entity.AvailablePeriodEntity;
 import com.endava.BookClub.entity.DefaultExtensionPeriodEntity;
 import com.endava.BookClub.repository.DefaultExtensionPeriodRepository;
 import com.endava.BookClub.service.AvailablePeriodService;
+import com.endava.BookClub.service.DefaultExtensionPeriodService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ public class ConfigController {
     private AvailablePeriodService availablePeriodService;
 
     @Autowired
-    private DefaultExtensionPeriodRepository defaultExtensionPeriodRepository;
+    private DefaultExtensionPeriodService defaultExtensionPeriodService;
 
     @PostMapping("available-period")
     public void addAvailablePeriod(@RequestBody AvailablePeriodEntity availablePeriodEntity) {
@@ -28,6 +29,6 @@ public class ConfigController {
 
     @PostMapping("default-extension-period")
     public void addDefaultExtensionPeriod(@RequestBody DefaultExtensionPeriodEntity defaultExtensionPeriodEntity) {
-        defaultExtensionPeriodRepository.save(defaultExtensionPeriodEntity);
+        defaultExtensionPeriodService.save(defaultExtensionPeriodEntity);
     }
 }
