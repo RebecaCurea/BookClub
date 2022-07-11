@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BookRepository extends JpaRepository <BookEntity, Integer> {
@@ -25,10 +26,10 @@ public interface BookRepository extends JpaRepository <BookEntity, Integer> {
             "FROM books b " +
             "LEFT JOIN book_borrower bb " +
             "ON b.id = bb.book_id " +
-            "WHERE (:title <> '' AND :author <> '' AND  b.title = :title AND b.author = :author) OR " +
-            "( :title = '' AND :author <> '' AND  b.author = :author) OR " +
-            "( :title <> '' AND :author = '' AND  b.title = :title) " ,  nativeQuery = true)
-    List<IBookToAvailability> findByTitleOrAuthor(@Param("title") String title, @Param("author") String author);
+            "WHERE (:title IS NOT NULL AND :author IS NOT NULL AND  b.title = :title AND b.author = :author) OR " +
+            "( :title IS NULL AND :author IS NOT NULL AND  b.author = :author) OR " +
+            "( :title IS NOT NULL AND :author IS NULL AND  b.title = :title) " ,  nativeQuery = true)
+    List<IBookToAvailability> findByTitleOrAuthor(@Param("title") Optional<String> title, @Param("author") Optional<String> author);
 
     @Query("SELECT b from BookEntity b LEFT JOIN BookBorrowerEntity bb ON b.id = bb.bookId WHERE bb.bookId IS NULL ORDER BY b.id")
     List<BookEntity> findBooksAvailableForRenting();

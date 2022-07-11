@@ -18,7 +18,7 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public List<IBookToAvailability> findByTitleOrAuthor(String title, String author) {
+    public List<IBookToAvailability> findByTitleOrAuthor(Optional<String> title, Optional<String> author) {
         return bookRepository.findByTitleOrAuthor(title, author);
     }
 

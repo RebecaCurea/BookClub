@@ -42,12 +42,13 @@ public class BookController {
     }
 
     @GetMapping("search")
-    public List<IBookToAvailability> getSearchResult(@RequestParam(value = "title") String title, @RequestParam(value = "author") String author){
+    public List<IBookToAvailability> getSearchResult(@RequestParam(value = "title") Optional<String> title, @RequestParam(value = "author") Optional<String> author){
         return  bookService.findByTitleOrAuthor(title, author);
     }
 
     @PostMapping("waiting-list")
     public void addUserToWaitingListForBook(@RequestBody WaitingListEntity waitingListEntity) {
+        System.out.println("Book Controller - waiting list");
         waitingListService.save(waitingListEntity);
     }
 }
