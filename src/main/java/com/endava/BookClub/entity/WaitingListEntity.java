@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 
 @Entity
@@ -14,7 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @IdClass(WaitingListId.class)
-public class WaitingListEntity implements Serializable {
+public class WaitingListEntity {
     @Id
     private Integer bookId;
     @Id

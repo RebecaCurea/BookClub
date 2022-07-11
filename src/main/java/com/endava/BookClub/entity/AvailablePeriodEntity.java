@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Data
@@ -15,7 +14,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @IdClass(AvailablePeriodId.class)
-public class AvailablePeriodEntity implements Serializable {
+public class AvailablePeriodEntity  {
     @Id
     private Integer quantity;
     @Id

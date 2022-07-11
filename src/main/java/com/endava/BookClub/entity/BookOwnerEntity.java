@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 
 @Entity
@@ -16,7 +15,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @IdClass(BookOwnerId.class)
-public class BookOwnerEntity implements Serializable {
+public class BookOwnerEntity {
     @Id
     @Column(name = "book_id")
     private Integer bookId;
