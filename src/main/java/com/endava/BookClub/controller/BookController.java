@@ -2,6 +2,7 @@ package com.endava.BookClub.controller;
 
 import com.endava.BookClub.entity.BookEntity;
 import com.endava.BookClub.entity.WaitingListEntity;
+import com.endava.BookClub.model.BookToUser;
 import com.endava.BookClub.projection.IBookToAvailability;
 import com.endava.BookClub.service.BookOwnerService;
 import com.endava.BookClub.service.BookService;
@@ -27,8 +28,8 @@ public class BookController {
     private WaitingListService waitingListService;
 
     @PostMapping
-    public void addBook(@RequestBody BookEntity book, @RequestParam int userId) {
-        bookOwnerService.add(book, userId);
+    public void addBook(@RequestBody BookToUser bookToUser) {
+        bookOwnerService.add(bookToUser);
     }
 
     @GetMapping("available-for-renting")

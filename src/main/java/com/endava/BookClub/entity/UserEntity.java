@@ -3,6 +3,7 @@ package com.endava.BookClub.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.sql.ConnectionBuilder;
 import java.util.Set;
 
 @Entity
@@ -16,9 +17,10 @@ public class UserEntity {
     @Column(nullable = false, updatable = false)
     private Integer id;
 
-    @Column(length = 50, nullable = false, unique = true)
+    @Column(length = 100, nullable = false, unique = true)
     private String username;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 100, nullable = false)
     private String password;
+
 }
