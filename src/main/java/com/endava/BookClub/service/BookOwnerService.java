@@ -30,6 +30,7 @@ public class BookOwnerService {
                 .author(book.getAuthor())
                 .pageNr(book.getPageNr())
                 .build();
+
         bookRepository.save(bookEntity);
 
         BookOwnerEntity bookOwnerEntity = BookOwnerEntity

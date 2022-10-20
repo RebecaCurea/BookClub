@@ -32,16 +32,17 @@ public class BookBorrowerService {
         AvailablePeriodId availablePeriodId = userToBookToAvailablePeriod.getAvailablePeriodId();
 
         LocalDateTime expectedReturnTimestamp = availablePeriodService
-                .getExpectedReturnTimestamp(availablePeriodId);
+                    .getExpectedReturnTimestamp(availablePeriodId);
 
         BookBorrowerEntity bookBorrowerEntity = BookBorrowerEntity
-                .builder()
-                .bookId(bookId)
-                .userId(userId)
-                .expectedReturnTimestamp(expectedReturnTimestamp)
-                .build();
+                    .builder()
+                    .bookId(bookId)
+                    .userId(userId)
+                    .expectedReturnTimestamp(expectedReturnTimestamp)
+                    .build();
 
         bookBorrowerRepository.save(bookBorrowerEntity);
+
     }
 
     @Transactional

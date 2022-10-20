@@ -10,9 +10,12 @@ import com.endava.BookClub.service.BookService;
 import com.endava.BookClub.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -27,14 +30,54 @@ public class UserController {
     @Autowired
     private BookService bookService;
 
+//    @PostMapping
+//    public void createUserAccount(@RequestBody UserEntity user) {
+//       userService.save(user);
+//    }
+
     @PostMapping
-    public void createUserAccount(@RequestBody UserEntity user) {
-       userService.save(user);
+    public ResponseEntity<?> createUserAccount(@RequestBody UserEntity user) {
+       return userService.save(user);
+    }
+
+    @GetMapping("/{id}")
+    public UserEntity getUser(@PathVariable Integer id) {
+        return userService.getUser(id);
+    }
+
+    @PutMapping("/{id}")
+    public void editUser(@RequestBody UserEntity user, @PathVariable Integer id) {
+          userService.editUser(user, id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Integer id) {
+        userService.deleteUser(id);
+    }
+
+
+    @PostMapping("/login")
+    public ResponseEntity<?> authenticateUser(@RequestBody UserEntity user) {
+        return userService.authenticateUser(user);
+//        Optional<UserEntity>  optionalUser = userService.findByUsername(user.getUsername());
+//
+//        if(optionalUser.isPresent()) {
+//            if(user.getPassword().equals(optionalUser.get().getPassword())) {
+//                return ResponseEntity.ok(optionalUser.get());
+//            }
+//        }
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+    }
+
+    @GetMapping
+    public List<UserEntity> getAllUsers(){
+        return  userService.getAllUsers();
     }
 
     @PostMapping("rent")
     public void rentBookForPeriod(@RequestBody UserToBookToAvailablePeriod userToBookToAvailablePeriod) {
-       bookBorrowerService.rentBookForPeriod(userToBookToAvailablePeriod);
+        bookBorrowerService.rentBookForPeriod(userToBookToAvailablePeriod);
     }
 
     @PatchMapping("rent")

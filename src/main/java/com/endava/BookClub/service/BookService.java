@@ -37,4 +37,20 @@ public class BookService {
     public List<IBooksRentedByASpecificUser> getNotOwnedBooksRentedByMyself(int userId) {
         return bookRepository.getNotOwnedBooksRentedByMyself(userId);
     }
+
+    public List<BookEntity> getAllBooks() {
+        return bookRepository.findAll();
+    }
+
+    public BookEntity editBook(BookEntity book, Integer id) {
+        BookEntity newBook =bookRepository.findById(id).orElseThrow();
+        newBook.setAuthor(book.getAuthor());
+        newBook.setTitle(book.getTitle());
+        newBook.setPageNr(book.getPageNr());
+        return bookRepository.save(newBook);
+    }
+
+    public void deleteBook(Integer id) {
+        bookRepository.deleteById(id);
+    }
 }

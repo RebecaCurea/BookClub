@@ -32,6 +32,23 @@ public class BookController {
         bookOwnerService.add(bookToUser);
     }
 
+    @GetMapping
+    public List<BookEntity> getAllBooks() {
+       return  bookService.getAllBooks();
+    }
+
+    @PutMapping ("{id}")
+    public BookEntity editBook(@RequestBody BookEntity book, @PathVariable Integer id) {
+        return bookService.editBook(book, id);
+    }
+
+    @DeleteMapping("{id}")
+    public void deleteBook(@PathVariable Integer id) {
+        bookService.deleteBook(id);
+    }
+
+
+
     @GetMapping("available-for-renting")
     public List<BookEntity> getBooksAvailableForRenting() {
         return bookService.getBooksAvailableForRenting();
@@ -49,7 +66,6 @@ public class BookController {
 
     @PostMapping("waiting-list")
     public void addUserToWaitingListForBook(@RequestBody WaitingListEntity waitingListEntity) {
-        System.out.println("Book Controller - waiting list");
         waitingListService.save(waitingListEntity);
     }
 }

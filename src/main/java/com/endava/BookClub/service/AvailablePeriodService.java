@@ -20,13 +20,15 @@ public class AvailablePeriodService {
     }
 
     public LocalDateTime getExpectedReturnTimestamp(AvailablePeriodId availablePeriodId) {
-        AvailablePeriodEntity availablePeriodEntity = availablePeriodRepository.findById(availablePeriodId).get();
 
-        Integer quantity = availablePeriodEntity.getQuantity();
-        String unit = availablePeriodEntity.getUnit();
+            AvailablePeriodEntity availablePeriodEntity = availablePeriodRepository.findById(availablePeriodId).get();
 
-       return unit.equals("week") ?
-               LocalDateTime.now().plusWeeks(quantity) :
-               LocalDateTime.now().plusMonths(quantity);
+            Integer quantity = availablePeriodEntity.getQuantity();
+            String unit = availablePeriodEntity.getUnit();
+
+            return unit.equals("week") ?
+                    LocalDateTime.now().plusWeeks(quantity) :
+                    LocalDateTime.now().plusMonths(quantity);
+
     }
 }

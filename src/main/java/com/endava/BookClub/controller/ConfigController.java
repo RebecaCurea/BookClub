@@ -2,7 +2,6 @@ package com.endava.BookClub.controller;
 
 import com.endava.BookClub.entity.AvailablePeriodEntity;
 import com.endava.BookClub.entity.DefaultExtensionPeriodEntity;
-import com.endava.BookClub.repository.DefaultExtensionPeriodRepository;
 import com.endava.BookClub.service.AvailablePeriodService;
 import com.endava.BookClub.service.DefaultExtensionPeriodService;
 import lombok.RequiredArgsConstructor;

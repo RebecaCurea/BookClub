@@ -8,16 +8,15 @@ import java.util.Set;
 
 @Entity
 @Data
-@Table(name="users", uniqueConstraints = {
-        @UniqueConstraint(columnNames ={"username"})
-})
+@Table(name="users")
+
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private Integer id;
 
-    @Column(length = 100, nullable = false, unique = true)
+    @Column(length = 100, nullable = false)
     private String username;
 
     @Column(length = 100, nullable = false)
